@@ -5,7 +5,8 @@
        public static final int NUM_OF_WORKING_DAYS = 2;
        public static final int MAX_HRS_IN_MONTH = 10;
 
-       public static void main(String args[]) {
+       static void ComputeEmployeeWage()
+	{
 
           //Variables
           int empHrs = 0;
@@ -37,4 +38,9 @@
 
 
       }
+	public static void main(String args[])
+	{
+		ComputeEmployeeWage();
+	}
+
  }
