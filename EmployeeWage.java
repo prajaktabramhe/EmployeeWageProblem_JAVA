@@ -1,64 +1,57 @@
+public class EmployeeWage {
 
- public class EmployeeWage {
-       public static final int IS_PART_TIME = 1;
-       public static final int IS_FULL_TIME = 2;
-        
+	//Constants
+	public static final int IS_PART_TIME = 1;
+	public static final int IS_FULL_TIME = 2;
 
-       private final String company;
-       private final int empRatePerHour;
-       private final int numOfWorkingDays;
-       private final int maxHoursPerMonth;
-       private int totalEmpWage;
+	private int numOfCompany = 0;
+	private CompanyEmpWage[] companyEmpWageArray;
 
-       public EmployeeWage(String company, int empRatePerHour ,int  numOfWorkingDays , int maxHoursPerMonth)
-	{
+	public EmployeeWage() {
+		companyEmpWageArray = new CompanyEmpWage[5];
+	}
 
-          this.company = company;
-          this.empRatePerHour = empRatePerHour;
-          this.numOfWorkingDays = numOfWorkingDays;
-          this.maxHoursPerMonth =  maxHoursPerMonth;
+	private void addCompanyEmpWage(String company, int empRatePerHour, int numOfWorkingDays, int maxHoursPerMonth) {
+		companyEmpWageArray[numOfCompany] = new CompanyEmpWage(company, empRatePerHour, numOfWorkingDays, maxHoursPerMonth);
+		numOfCompany++;
+	}
+
+	private void calculateEmpWage() {
+		for ( int i = 0; i < numOfCompany; i++){
+		int totalEmpWage = calculateEmpHrs(companyEmpWageArray[i]);
+		System.out.println("Total Emp Wage for Company " + companyEmpWageArray[i].company + " is : " +totalEmpWage);
+		}
+	}
+
+	private int calculateEmpHrs(CompanyEmpWage companyEmpWage) {
+		//Variables
+		int empHrs = 0;
+	        int totalEmpHrs = 0;
+	        int totalWorkingDays = 0;
+		//Computation
+		while (totalEmpHrs <= companyEmpWage.maxHoursPerMonth && totalWorkingDays < companyEmpWage.numOfWorkingDays){
+		totalWorkingDays++;
+		int empCheck = (int) Math.floor(Math.random() * 10) % 3;
+	        switch (empCheck) {
+	                case IS_FULL_TIME:
+				empHrs = 8;
+	                        break;
+	                case IS_PART_TIME:
+	                        empHrs = 4;
+	                        break;
+	                default:
+	                        empHrs = 0;
+		}
+ 		totalEmpHrs += empHrs;
+                System.out.println("Day# : " + totalWorkingDays + " Emp Hrs : " +empHrs);
         }
-       public void computeEmpWage() 
-       {
-          //variables
-           int empHrs = 0,totalEmpHrs = 0, totalWorkingDays = 0;
- 
-          //Computation
-          while (totalEmpHrs <= maxHoursPerMonth && 
-                 totalWorkingDays < numOfWorkingDays)
-          {
-                totalWorkingDays++;
-                int empCheck = (int) Math.floor(Math.random() * 10) % 3;
-                switch (empCheck) 
-                {
-                    case IS_PART_TIME:
-                       empHrs = 4;
-                       break;
-                    case IS_FULL_TIME:
-                       empHrs = 8;
-                       break;
-                    default:
-                       empHrs = 0; 
-                 }
-                 totalEmpHrs += empHrs;
-                 System.out.println("Day#: " + totalWorkingDays + " Emp Hr: " + empHrs);
-           }
-            totalEmpWage = totalEmpHrs * empRatePerHour;
+        return totalEmpHrs * companyEmpWage.empRatePerHour;
+	}
 
-
-
-      }
-	
-      public String toString() {
-      return "Total Emp Wage for Company: " + company +" is: " + totalEmpWage;
-      }
-      public static void main(String[] args) {
-
-            EmployeeWage dMart = new EmployeeWage("DMart", 20, 2, 10);
-            EmployeeWage reliance = new EmployeeWage("Reliance", 10, 4, 20);
-            dMart.computeEmpWage();
-            System.out.println(dMart);
-            reliance.computeEmpWage();
-            System.out.println(reliance);
-        }
+	public static void main (String args []){
+		EmployeeWage employeeWageBuilder = new EmployeeWage();
+		employeeWageBuilder.addCompanyEmpWage("D-Mart", 20, 20, 100);
+		employeeWageBuilder.addCompanyEmpWage("Relience", 15, 15, 80);
+		employeeWageBuilder.calculateEmpWage();
+	}
 }
