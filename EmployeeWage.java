@@ -16,7 +16,7 @@ public class EmployeeWage {
 		numOfCompany++;
 	}
 
-	private void calculateEmpWage() {
+	private void computeEmpWage() {
 		for ( int i = 0; i < numOfCompany; i++){
 		int totalEmpWage = calculateEmpHrs(companyEmpWageArray[i]);
 		System.out.println("Total Emp Wage for Company " + companyEmpWageArray[i].company + " is : " +totalEmpWage);
@@ -52,6 +52,6 @@ public class EmployeeWage {
 		EmployeeWage employeeWageBuilder = new EmployeeWage();
 		employeeWageBuilder.addCompanyEmpWage("D-Mart", 20, 20, 100);
 		employeeWageBuilder.addCompanyEmpWage("Relience", 15, 15, 80);
-		employeeWageBuilder.calculateEmpWage();
+		employeeWageBuilder.computeEmpWage();
 	}
 }
